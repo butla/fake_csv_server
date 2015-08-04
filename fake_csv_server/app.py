@@ -5,10 +5,10 @@ import tornado.ioloop
 import tornado.web
 
 _CHUNK_OF_128_BYTES = '000000000000000,111111111111111,222222222222222,333333333333333,444444444444444,' \
-                     '555555555555555,666666666666666,777777777777777\n'
+                      '555555555555555,666666666666666,777777777777777\n'
+
 
 class FakeCsvHandler(tornado.web.RequestHandler):
-
     _COLUMN_HEADERS = 'COL_0,COL_1,COL_2,COL_3,COL_4,COL_5,COL_6,COL_7\n'
     _ONE_KILOBYTE_CHUNK = ''.join(_CHUNK_OF_128_BYTES for _ in range(8))
     _HUNDRED_KILOBYTE_CHUNK = ''.join(_CHUNK_OF_128_BYTES for _ in range(800))
@@ -39,6 +39,7 @@ def make_app():
     return tornado.web.Application([
         (r"/([0-9]+)", FakeCsvHandler),
     ])
+
 
 if __name__ == "__main__":
     server = tornado.httpserver.HTTPServer(make_app())
