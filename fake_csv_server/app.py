@@ -25,7 +25,7 @@ class FakeCsvHandler(tornado.web.RequestHandler):
             yield self.flush()
         for _ in range(kilobytes_to_hundred):
             self.write(self._ONE_KILOBYTE_CHUNK)
-            yield self.flush()
+        yield self.flush()
 
     def _set_file_headers(self, size_in_kilobytes):
         num_bytes = size_in_kilobytes * 1024 + len(self._COLUMN_HEADERS)
