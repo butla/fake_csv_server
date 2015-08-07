@@ -3,6 +3,8 @@ import tornado.gen
 import tornado.ioloop
 import tornado.web
 
+import os
+
 _CHUNK_OF_128_BYTES = '000000000000000,111111111111111,222222222222222,333333333333333,444444444444444,' \
                       '555555555555555,666666666666666,777777777777777\n'
 
@@ -36,12 +38,12 @@ class FakeCsvHandler(tornado.web.RequestHandler):
 
 def make_app():
     return tornado.web.Application([
-        (r"/([0-9]+)", FakeCsvHandler),
+        (r"/fake-csv/([0-9]+)", FakeCsvHandler),
     ])
 
 
 if __name__ == "__main__":
     server = tornado.httpserver.HTTPServer(make_app())
-    server.bind(9090)
+    server.bind(int(os.getenv('VCAP_APP_PORT', '9090')))
     server.start(0)
     tornado.ioloop.IOLoop.current().start()
