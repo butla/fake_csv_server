@@ -44,6 +44,6 @@ def make_app():
 
 if __name__ == "__main__":
     server = tornado.httpserver.HTTPServer(make_app())
-    server.bind(int(os.getenv('VCAP_APP_PORT', '9090')))
+    server.bind(int(os.getenv('PORT', '9090')))
     server.start(0)
     tornado.ioloop.IOLoop.current().start()

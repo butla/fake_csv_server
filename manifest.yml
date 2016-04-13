@@ -3,4 +3,5 @@ applications:
 - name: fake-csv-server
   command: python fake_csv_server/app.py
   memory: 256M
+  disk_quota: 256M
   buildpack: python_buildpack 
